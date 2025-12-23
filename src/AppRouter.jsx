@@ -10,6 +10,7 @@ import Signup from "./pages/Signup";
 import { useState } from "react";
 import Favourites from "./pages/Favourites";
 import WatchList from "./pages/WatchList";
+import AllMovies from "./pages/AllMovies";
 
 function AppRouter() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -23,7 +24,8 @@ function AppRouter() {
       <Route element={<ProtectedLayout isLoggedIn={loggedIn} />}>
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/moviedetails" element={<MovieDetails />} />
+          <Route path="/allmovies" element={<AllMovies />} />
+          <Route path="/allmovies/id" element={<MovieDetails />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/watchlist" element={<WatchList />} />
         </Route>
