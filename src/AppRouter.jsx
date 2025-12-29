@@ -12,10 +12,12 @@ import Favourites from "./pages/Favourites";
 import WatchList from "./pages/WatchList";
 import AllMovies from "./pages/AllMovies";
 
+
 function AppRouter() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   return (
     <Routes>
+      
       <Route element={<AuthLayout isLoggedIn={loggedIn} />}>
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn}  />} />
         <Route path="/signup" element={<Signup />} />

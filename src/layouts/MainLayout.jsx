@@ -1,14 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Navbar from '../components/Navbar'
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
 
 function MainLayout() {
   return (
     <div>
-        <Navbar />
-        <Outlet />
+      <Topbar />
+      <div className="">
+        <Sidebar />
+        <div className="sm:ml-50">
+          <Outlet />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default MainLayout
+export default MainLayout;

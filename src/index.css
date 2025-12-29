@@ -4,10 +4,11 @@
 @theme{
 
     --color-dark: #14181e;
-    --color-accent: #db2a2a;
+    --color-accent: #6a33c3;
 
 }
 
 body{
     background-color: #14181e;
+    
 }

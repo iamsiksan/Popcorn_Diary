@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = import.meta.env.VITE_TMDB_API_BASE_URL;
-// const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
+export const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -13,12 +13,12 @@ const api = axios.create({
 
 // fetch movies with filter
 
-export const getMoviesApi = async () => {
+export const getMoviesApi = async (params) => {
   try {
     const response = await api.get("/discover/movie", {
       params: {
         sort_by: "popularity.desc",
-        page: 1,
+        page: params.page,
       },
     });
     return response.data.results;
