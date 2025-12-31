@@ -6,20 +6,37 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 import {
   addToFavourites,
   removeFromFavourites,
-  favourites,
+  addToWatchlist,
+  removeFromWatchlist,
 } from "../redux/movieSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const MovieCard = ({ movie }) => {
-  const isFav = false;
+  const dispatch = useDispatch();
+  const favourites = useSelector((state) => state.movies.favourites);
+  const watchlist = useSelector((state) => state.movies.watchlist);
+  const isFav = favourites.some((fav) => fav.id === movie.id);
+  const isWatchlist = watchlist.some((watchlist) => watchlist.id === movie.id);
 
   const genres =
     movie.genre_ids?.map((id) => GENRE_MAP[id]).filter(Boolean) || [];
 
   const handleToggleFav = () => {
     if (isFav) {
-      removeFromFavourites(movie.id);
+      dispatch(removeFromFavourites(movie.id));
+      console.log("Removed from favourites.");
     } else {
-      addToFavourites(movie);
+      dispatch(addToFavourites(movie));
+      console.log("Added to favourites");
+    }
+  };
+
+  const handleWatchlist = () => {
+    if (isWatchlist) {
+      dispatch(removeFromWatchlist(movie.id));
+    } else {
+      dispatch(addToWatchlist(movie));
+      console.log("Movie added to watchlist");
     }
   };
 
@@ -41,7 +58,7 @@ const MovieCard = ({ movie }) => {
 
       <button
         onClick={handleToggleFav}
-        className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/50 hover:bg-black/70 transition"
+        className="absolute top-3 right-3 z-20 p-2 rounded-full cursor-pointer bg-black/50 hover:bg-black/70 transition"
       >
         {isFav ? (
           <FaHeart className="text-accent text-lg" />
@@ -51,7 +68,7 @@ const MovieCard = ({ movie }) => {
       </button>
 
       {/* Content */}
-      <div className="relative z-10 p-4 text-white">
+      <div className="relative z-10 p-4 text-white space-y-3">
         <h2 className="text-lg font-semibold leading-tight mb-1">
           {movie.title}
         </h2>
@@ -70,6 +87,20 @@ const MovieCard = ({ movie }) => {
             <FaStar className="text-yellow-400" />{" "}
             {movie.vote_average.toFixed(1)}
           </div>
+        </div>
+        {/* Add to watchlist  */}
+        <div className="flex justify-center">
+          <button
+            onClick={handleWatchlist}
+            className={`border border-accent px-3 py-2 rounded-2xl w-full shadow-md cursor-pointer transition text-white
+              ${
+                isWatchlist
+                  ? "border-accent  shadow-accent"
+                  : "bg-accent/80  hover:bg-accent/20"
+              }`}
+          >
+            {isWatchlist ? "Remove from Watchlist" : "Add to WatchList"}
+          </button>
         </div>
       </div>
     </div>

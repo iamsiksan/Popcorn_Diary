@@ -11,6 +11,7 @@ import { useState } from "react";
 import Favourites from "./pages/Favourites";
 import WatchList from "./pages/WatchList";
 import AllMovies from "./pages/AllMovies";
+import Profile from "./pages/Profile";
 
 
 function AppRouter() {
@@ -30,6 +31,7 @@ function AppRouter() {
           <Route path="/allmovies/id" element={<MovieDetails />} />
           <Route path="/favourites" element={<Favourites />} />
           <Route path="/watchlist" element={<WatchList />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
       </Route>
     </Routes>

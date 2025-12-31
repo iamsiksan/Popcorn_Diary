@@ -1,12 +1,10 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { AiFillHome, AiFillHeart } from "react-icons/ai";
-
-import { MdPlaylistAdd } from "react-icons/md";
+import { MdPlaylistAdd, MdMovie } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
-import { MdMovie } from "react-icons/md";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const navItems = [
     { icon: <AiFillHome size={25} />, label: "Home", link: "/" },
     { icon: <MdMovie size={25} />, label: "Movies", link: "/allmovies" },
@@ -25,38 +23,38 @@ const Sidebar = () => {
 
   return (
     <aside
-      className=" fixed h-screen  w-20 flex flex-col items-center  py-6
-      bg-transparent  m-5 rounded-2xl"
+      className={`
+        fixed left-0 w-20 bg-accent/10 backdrop-blur-md rounded-r-2xl p-4
+        z-50 flex flex-col items-center gap-6
+        transform transition-transform duration-300
+        top-1/2 -translate-y-1/2
+        ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
+      `}
     >
-      {/* Navigation */}
-      <div className="flex flex-col items-center mt-20 gap-6 flex-1">
-        {navItems.map((item, index) => (
-          <NavLink
-            key={index}
-            to={item.link}
-            className={({ isActive }) =>
-              `group relative w-11 h-11 flex items-center justify-center
-               rounded-full transition-all duration-300
-               ${
-                 isActive
-                   ? "bg-accent text-black shadow-lg"
-                   : "text-white/70 hover:text-white hover:bg-white/10"
-               }`
-            }
-          >
-            {item.icon}
+      {navItems.map((item, index) => (
+        <NavLink
+          key={index}
+          to={item.link}
+          className={({ isActive }) =>
+            `group relative w-11 h-11 flex items-center justify-center rounded-full transition-all duration-300
+             ${
+               isActive
+                 ? "bg-accent text-black shadow-lg"
+                 : "text-white/70 hover:text-white hover:bg-white/10"
+             }`
+          }
+          onClick={() => {
+            setTimeout(() => setIsOpen(false), 50);
+          }}
+        >
+          {item.icon}
 
-            {/* Tooltip */}
-            <span
-              className="absolute left-14 whitespace-nowrap
-              bg-black/80 text-white text-xs px-3 py-1 rounded-md
-              opacity-0 group-hover:opacity-100 transition"
-            >
-              {item.label}
-            </span>
-          </NavLink>
-        ))}
-      </div>
+          {/* Tooltip */}
+          <span className="absolute left-14 whitespace-nowrap bg-black/80 text-white text-xs px-3 py-1 rounded-md opacity-0 group-hover:opacity-100 transition">
+            {item.label}
+          </span>
+        </NavLink>
+      ))}
     </aside>
   );
 };
