@@ -10,15 +10,15 @@ const UnderConstruction = () => {
         className=" w-20 sm:w-35 mb-6 rounded-4xl "
       />
 
-      <h1 className=" text-md sm:text-3xl font-semibold text-white mb-2">
+      <h1 className=" text-md sm:text-2xl font-semibold text-white mb-2">
         Page Under Construction
       </h1>
 
-      <p className="text-xs sm:text-3xl text-gray-400 max-w-md">
-        We’re working hard to bring this feature to life.  
+      <p className="text-xs sm:text-xl text-gray-400 max-w-md">
+        We're working hard to bring this feature to life.  
        
       </p>
-      <p className="text-xs sm:text-3xl text-gray-400 max-w-md" > Please check back soon 🚀</p>
+      <p className="text-xs sm:text-xl text-gray-400 max-w-md" > Please check back soon 🚀</p>
     </div>
   );
 };

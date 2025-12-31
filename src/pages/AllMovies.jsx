@@ -6,7 +6,6 @@ import MovieCard from "../components/MovieCard";
 const AllMovies = () => {
   const dispatch = useDispatch();
   const { movies, loading, error } = useSelector(state => state.movies);
-  console.log(movies);
   
 
   useEffect(() => {

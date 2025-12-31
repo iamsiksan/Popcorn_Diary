@@ -40,7 +40,7 @@ const Hero = () => {
     );
 
   return (
-    <div className="relative w-full h-[82vh] text-white overflow-hidden">
+    <div className="relative w-full h-[80vh] text-white overflow-hidden">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center brightness-90 transition-all duration-500"
