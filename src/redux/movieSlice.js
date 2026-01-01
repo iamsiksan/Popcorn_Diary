@@ -36,6 +36,7 @@ export const fetchMovieDetails = createAsyncThunk(
 
 const initialState = {
   movies: [],
+  searchResults: [],
   favourites: [],
   watchlist: [],
   loading: false,
@@ -81,7 +82,7 @@ const movieSlice = createSlice({
 
       // Search movies
       .addCase(searchMovies.pending, (state) => { state.loading = true; })
-      .addCase(searchMovies.fulfilled, (state, action) => { state.loading = false; state.movies = action.payload; })
+      .addCase(searchMovies.fulfilled, (state, action) => { state.loading = false; state.searchResults = action.payload; })
 
       // Movie details
       .addCase(fetchMovieDetails.pending, (state) => { state.loading = true; })

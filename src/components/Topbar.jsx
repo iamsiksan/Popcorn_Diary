@@ -1,8 +1,14 @@
 import { BiSearch } from "react-icons/bi";
 import { FaFilm } from "react-icons/fa";
 import {Link} from "react-router-dom"
+import SearchBar from "./SearchBar";
+import { useSelector } from "react-redux";
 
 const Topbar = ({ toggleSidebar }) => {
+  const movies  = useSelector((state)=> state.movies.movies)
+
+
+  
   return (
     <div className="fixed top-0 left-0 w-full z-50 px-4 sm:px-6 md:px-10 py-2 sm:py-4 bg-black">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 w-full">
@@ -30,14 +36,7 @@ const Topbar = ({ toggleSidebar }) => {
         </div>
 
         {/* Search */}
-        <div className="flex items-center gap-2 sm:gap-5 w-full sm:w-auto bg-transparent rounded-2xl px-3 sm:px-5 py-1 sm:py-2 outline outline-accent focus-within:outline-2 transition">
-          <BiSearch className="text-white/70 text-lg sm:text-xl" />
-          <input
-            type="text"
-            placeholder="Search for movie..."
-            className="bg-transparent outline-none text-sm sm:text-base text-white placeholder-white/50 w-full"
-          />
-        </div>
+        <SearchBar movies={movies} />
       </div>
     </div>
   );
