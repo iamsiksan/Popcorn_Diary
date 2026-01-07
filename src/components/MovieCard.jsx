@@ -10,10 +10,12 @@ import {
   removeFromWatchlist,
 } from "../redux/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
-import LazyLoad from "react-lazyload";
+import { useNavigate } from "react-router-dom";
+
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const favourites = useSelector((state) => state.movies.favourites);
   const watchlist = useSelector((state) => state.movies.watchlist);
   const isFav = favourites.some((fav) => fav.id === movie.id);
@@ -42,8 +44,9 @@ const MovieCard = ({ movie }) => {
   };
 
   return (
-    <LazyLoad height={300} offset={100} once>
+    
       <div
+      onClick={() => navigate(`/allmovies/${movie.id}`)}
         className="movie-card relative flex flex-col justify-end h-105 max-w-2xs rounded-xl overflow-hidden shadow-md shadow-accent"
         style={{
           backgroundImage: `url(${
@@ -108,7 +111,7 @@ const MovieCard = ({ movie }) => {
           </div>
         </div>
       </div>
-    </LazyLoad>
+    
   );
 };
 
