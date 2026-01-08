@@ -18,7 +18,7 @@ const Login = ErrorBoundaryWrapper( React.lazy(() => import("./pages/Login")));
 const Signup = ErrorBoundaryWrapper( React.lazy(() => import("./pages/Signup")));
 
 function AppRouter() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   return (
     
 
