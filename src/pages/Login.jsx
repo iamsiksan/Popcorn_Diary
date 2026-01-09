@@ -73,7 +73,7 @@ function Login({ setLoggedIn }) {
           </span>
         </p>
       </form>
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </div>
   );
 }

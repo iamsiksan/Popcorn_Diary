@@ -46,7 +46,7 @@ const MovieCard = ({ movie }) => {
   return (
     
       <div
-      onClick={() => navigate(`/allmovies/${movie.id}`)}
+      
         className="movie-card relative flex flex-col justify-end h-105 max-w-2xs rounded-xl overflow-hidden shadow-md shadow-accent"
         style={{
           backgroundImage: `url(${
@@ -59,7 +59,9 @@ const MovieCard = ({ movie }) => {
         }}
       >
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
+        <div 
+        onClick={() => navigate(`/allmovies/${movie.id}`)}
+        className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent" />
 
         <button
           onClick={handleToggleFav}
