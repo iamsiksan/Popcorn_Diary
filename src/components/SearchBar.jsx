@@ -1,17 +1,26 @@
-import { useState,useEffect } from "react";
-import {useDispatch, useSelector} from "react-redux"
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BiSearch } from "react-icons/bi";
 import { IMAGE_BASE_URL } from "../services/movieApi";
-import {searchMovies} from "../redux/movieSlice"
+import { searchMovies } from "../redux/movieSlice";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = ({ movies }) => {
   const [query, setQuery] = useState("");
+  const [showDropdown, setShowDropdown] = useState(false);
 
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const searchResults = useSelector(
-    (state) => state.movies.searchResults
-  );
+  const searchResults = useSelector((state) => state.movies.searchResults);
+
+  const handleMovieClick = (movie) => {
+    setQuery("")
+    
+
+    setShowDropdown(false);
+    navigate(`/allmovies/${movie.id}`);
+  };
 
   useEffect(() => {
     if (query.trim().length < 2) return;
@@ -28,20 +37,26 @@ const SearchBar = ({ movies }) => {
           type="text"
           placeholder="Search for movie..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setShowDropdown(true);
+          }}
           className="bg-transparent outline-none text-sm sm:text-base text-white placeholder-white/50 w-full"
         />
       </div>
 
       {/* Recommendation Dropdown */}
-      {query && (
+      {query && showDropdown && (
         <div className="absolute top-full mt-2 w-full bg-black/90 rounded-xl shadow-lg overflow-hidden z-50">
           {searchResults.length > 0 ? (
             searchResults.slice(0, 6).map((movie) => (
               <div
                 key={movie.id}
                 className="px-4 py-2 cursor-pointer text-white/90 hover:bg-accent/20 transition"
-                onClick={() => setQuery(movie.title)}
+                onClick={() => {
+                  setQuery(movie.title);
+                  handleMovieClick(movie)
+                }}
               >
                 <div className="flex items-center gap-2">
                   <img
