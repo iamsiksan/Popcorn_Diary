@@ -1,38 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {
-  getMoviesApi,
-  getMovieByIdApi,
-  searchMovieApi,
-  getMovieTrailerApi,
-} from "../services/movieApi";
+import { getMoviesApi, getMovieByIdApi, searchMovieApi, getMovieTrailerApi } from "../services/movieApi";
+
 
 // fetch movies with filters
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (params) => {
+  async (params)=>{
     const results = await getMoviesApi(params);
-    return results;
-  }
-);
+    return results;;
+
+});
+
 
 // search movies
 
 export const searchMovies = createAsyncThunk(
   "movie/searchMovies",
-  async ({ query, page }) => {
+  async ({query,page}) => {
     const results = await searchMovieApi(query, page);
     return results;
   }
 );
 
-// fetch movie by id
-export const fetchMovieById = createAsyncThunk(
-  "movies/fetchMovieById",
-  async (movieId) => {
-    const response = await getMovieByIdApi(movieId);
-    return response.data;
-  }
-);
 
 // movie details
 
@@ -41,8 +30,10 @@ export const fetchMovieDetails = createAsyncThunk(
   async (id) => {
     const movie = await getMovieByIdApi(id);
     return movie;
+    
   }
 );
+
 
 export const fetchMovieTrailer = createAsyncThunk(
   "movie/fetchMovieTrailer",
@@ -52,8 +43,13 @@ export const fetchMovieTrailer = createAsyncThunk(
     const trailer =
       response.data.results.find(
         (video) =>
-          video.site === "YouTube" && video.type === "Trailer" && video.official
-      ) || response.data.results.find((video) => video.site === "YouTube");
+          video.site === "YouTube" &&
+          video.type === "Trailer" &&
+          video.official
+      ) ||
+      response.data.results.find(
+        (video) => video.site === "YouTube"
+      );
 
     return trailer ? trailer.key : null;
   }
@@ -67,9 +63,8 @@ const initialState = {
   loading: false,
   error: null,
   trailerKey: null,
-  trailerLoading: false,
-  trailerError: null,
-  movieDetails: null,
+    trailerLoading: false,
+    trailerError: null
 };
 
 const movieSlice = createSlice({
@@ -92,51 +87,35 @@ const movieSlice = createSlice({
         (movie) => movie.id !== action.payload
       );
     },
-    clearFavouriteList: (state) => {
-      state.favourites = null;
+    clearFavouriteList: (state)=>{
+      state.favourites = null ;
+
     },
-    clearWatchList: (state) => {
-      state.watchlist = null;
+    clearWatchList: (state)=>{
+      state.watchlist = null ;
+
     },
     clearTrailer: (state) => {
       state.trailerKey = null;
-    },
+    }
+    
   },
   extraReducers: (builder) => {
     builder
       // Fetch movies
-      .addCase(fetchMovies.pending, (state) => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(fetchMovies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.movies = action.payload;
-      })
-      .addCase(fetchMovies.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message;
-      })
+      .addCase(fetchMovies.pending, (state) => { state.loading = true; state.error = null; })
+      .addCase(fetchMovies.fulfilled, (state, action) => { state.loading = false; state.movies = action.payload; })
+      .addCase(fetchMovies.rejected, (state, action) => { state.loading = false; state.error = action.error.message; })
 
       // Search movies
-      .addCase(searchMovies.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(searchMovies.fulfilled, (state, action) => {
-        state.loading = false;
-        state.searchResults = action.payload;
-      })
+      .addCase(searchMovies.pending, (state) => { state.loading = true; })
+      .addCase(searchMovies.fulfilled, (state, action) => { state.loading = false; state.searchResults = action.payload; })
 
       // Movie details
-      .addCase(fetchMovieDetails.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchMovieDetails.fulfilled, (state, action) => {
-        state.loading = false;
-        state.movieDetails = action.payload;
-      })
+      .addCase(fetchMovieDetails.pending, (state) => { state.loading = true; })
+      .addCase(fetchMovieDetails.fulfilled, (state, action) => { state.loading = false; state.movieDetails = action.payload; })
 
-      // Movie Trailer
+      // Movie Trailer 
       .addCase(fetchMovieTrailer.pending, (state) => {
         state.trailerLoading = true;
         state.trailerError = null;
@@ -149,23 +128,8 @@ const movieSlice = createSlice({
         state.trailerLoading = false;
         state.trailerError = "Failed to load trailer";
       });
-
-    // Fetch movie by Id
-    builder.addCase(fetchMovieById.fulfilled, (state, action) => {
-      state.movieDetails = action.payload;
-    });
   },
 });
 
-export const {
-  favourites,
-  watchlist,
-  addToFavourites,
-  removeFromFavourites,
-  addToWatchlist,
-  removeFromWatchlist,
-  clearFavouriteList,
-  clearWatchList,
-  clearTrailer,
-} = movieSlice.actions;
+export const { favourites,watchlist,addToFavourites,removeFromFavourites,addToWatchlist,removeFromWatchlist,clearFavouriteList,clearWatchList,clearTrailer } = movieSlice.actions;
 export default movieSlice.reducer;

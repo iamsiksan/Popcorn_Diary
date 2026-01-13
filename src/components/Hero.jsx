@@ -209,7 +209,7 @@ const Hero = () => {
 
                   <div className="flex gap-3 pt-2">
                     <button
-                    onClick={()=>fetchMovieTrailer({selectedMovie})}
+                    onClick={handleWatchTrailer}
                      className="bg-accent rounded-xl text-base font-medium px-8 py-3 transition hover:opacity-90">
                       Trailer
                     </button>
