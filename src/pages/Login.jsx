@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 function Login({ setLoggedIn }) {
   const navigate = useNavigate();
   const form = useForm();
-  const { register, control, handleSubmit, formState } = form;
-  const { errors } = formState;
+  const { register, control, handleSubmit, formState, reset } = form;
+  const { errors, isDirty, isValid } = formState;
 
   const handleLogin = (data) => {
     if (data.password === "qaqa") {
@@ -18,10 +18,14 @@ function Login({ setLoggedIn }) {
     console.log("Login form Submitted.", data);
   };
 
+  const onError = (errors) => {
+    console.log("Form errors", errors);
+  };
+
   return (
     <div className="flex items-center justify-center w-full h-screen  text-white">
       <form
-        onSubmit={handleSubmit(handleLogin)}
+        onSubmit={handleSubmit(handleLogin, onError)}
         className="w-full max-w-sm bg-gray-900  rounded-2xl shadow-accent shadow-sm p-8 flex flex-col gap-5"
         noValidate
       >

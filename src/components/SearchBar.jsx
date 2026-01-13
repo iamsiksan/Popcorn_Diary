@@ -28,6 +28,8 @@ const SearchBar = ({ movies }) => {
     dispatch(searchMovies({ query }));
   }, [query, dispatch]);
 
+
+
   return (
     <div className="relative w-full sm:w-auto">
       {/* Search Input */}

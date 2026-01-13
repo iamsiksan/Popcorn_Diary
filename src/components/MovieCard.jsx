@@ -11,6 +11,7 @@ import {
 } from "../redux/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchMovieTrailer } from "../redux/movieSlice";
 
 
 const MovieCard = ({ movie }) => {
@@ -42,6 +43,11 @@ const MovieCard = ({ movie }) => {
       console.log("Movie added to watchlist");
     }
   };
+
+  const handleWatchTrailer = (e) => {
+  e.stopPropagation(); 
+  dispatch(fetchMovieTrailer(movie.id));
+};
 
   return (
     
@@ -97,6 +103,16 @@ const MovieCard = ({ movie }) => {
               {movie.vote_average.toFixed(1)}
             </div>
           </div>
+          {/* Watch Trailer  */}
+          <div className="flex justify-center">
+            <button
+             onClick={handleWatchTrailer}
+              className={'border border-accent px-3 py-2 rounded-2xl w-full shadow-md cursor-pointer transition text-white'}
+              
+            >
+              Watch Trailer
+            </button>
+          </div>
           {/* Add to watchlist  */}
           <div className="flex justify-center">
             <button
@@ -112,6 +128,7 @@ const MovieCard = ({ movie }) => {
             </button>
           </div>
         </div>
+       
       </div>
     
   );

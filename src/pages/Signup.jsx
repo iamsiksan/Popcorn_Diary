@@ -72,6 +72,7 @@ function Signup() {
         </div>
 
         <button
+        onClick={() => navigate("/login")}
           type="submit"
           className="mt-4 py-2 rounded-lg bg-accent text-white font-medium hover:opacity-90 transition"
         >

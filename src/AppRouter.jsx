@@ -7,6 +7,7 @@ import ProtectedLayout from "./layouts/ProtectedLayout";
 import { Suspense } from "react";
 // import ErrorBoundary from "./components/ErrorBoundary"
 import ErrorBoundaryWrapper from "./ErrorHandling/ErrorBoundaryWrapper";
+import TrailerPlayer from "./components/TrailerPlayer";
 
 const Home = ErrorBoundaryWrapper( React.lazy(() => import("./pages/Home")));
 const MovieDetails = ErrorBoundaryWrapper( React.lazy(() => import("./pages/MovieDetails")));
@@ -41,6 +42,7 @@ function AppRouter() {
           </Route>
         </Route>
       </Routes>
+      <TrailerPlayer />
     </Suspense>
     
   );

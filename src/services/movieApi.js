@@ -55,3 +55,13 @@ export const getMovieByIdApi = async (id) => {
     return null;
   }
 };
+
+
+// Get the movie 
+
+export const getMovieTrailerApi = (movieId) =>
+  axios.get(`${BASE_URL}/movie/${movieId}/videos`, {
+    params: {
+      api_key: API_KEY
+    }
+  });

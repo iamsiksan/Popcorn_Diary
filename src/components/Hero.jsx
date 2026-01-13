@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "../redux/movieSlice";
+import { fetchMovies,fetchMovieTrailer } from "../redux/movieSlice";
 import { IMAGE_BASE_URL } from "../services/movieApi";
 import { FaStar } from "react-icons/fa";
 import { GENRE_MAP } from "../assets/assets";
@@ -46,6 +46,11 @@ const Hero = () => {
   const handleMovieSelect = (movie, index) => {
     setSelectedMovie(movie);
     setCurrentIndex(index);
+  };
+
+  const handleWatchTrailer = (e) => {
+    e.stopPropagation(); 
+    dispatch(fetchMovieTrailer(selectedMovie.id));
   };
 
   if (loading)
@@ -141,7 +146,9 @@ const Hero = () => {
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-2">
-              <button className="flex-1 bg-accent rounded-xl text-sm font-medium px-5 py-3 transition hover:opacity-90">
+              <button
+              onClick={handleWatchTrailer}
+               className="flex-1 bg-accent rounded-xl text-sm font-medium px-5 py-3 transition hover:opacity-90">
                 Trailer
               </button>
               <button
@@ -201,7 +208,9 @@ const Hero = () => {
                   </p>
 
                   <div className="flex gap-3 pt-2">
-                    <button className="bg-accent rounded-xl text-base font-medium px-8 py-3 transition hover:opacity-90">
+                    <button
+                    onClick={()=>fetchMovieTrailer({selectedMovie})}
+                     className="bg-accent rounded-xl text-base font-medium px-8 py-3 transition hover:opacity-90">
                       Trailer
                     </button>
                     <button
