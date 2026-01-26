@@ -15,7 +15,7 @@ function Login({ setLoggedIn }) {
       setLoggedIn(true);
     }
 
-    console.log("Login form Submitted.", data);
+    
   };
 
   const onError = (errors) => {
